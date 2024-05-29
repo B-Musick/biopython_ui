@@ -3,11 +3,19 @@ import { getAvailableDatabases, searchEntrez } from "../api/entrez"
 import Select from "react-select";
 import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
+import Modal from "./Modal";
+import { SequenceRecord } from "../lib/types";
+import SequenceRecordView from "./SequenceRecordView";
+
 
 export const EntrezSearch = () => {
+    const [showModal, setShowModal] = useState(false);
+    const [modal, setModal] = useState();
+
+    let actionBar = <div><button>action button</button></div>
     const [formInput, setFormInput] = useState(
         {searchTerm: '', databaseType: '', maxResults: 5});
-    const [results, setResults] = useState([]);
+    const [results, setResults] = useState<SequenceRecord[]>([]);
     let outputResults
 
     let databases;
@@ -29,30 +37,41 @@ export const EntrezSearch = () => {
     }
 
     const handleFormChange = (e) => {
-        setFormInput(val => { return {...val, [e.target.name]: e.target.value} as GameInfo})
+        setFormInput(val => { return {...val, [e.target.name]: e.target.value}})
     }
 
     const handleSearch = async (e) => {
         e.preventDefault()
         let res = await searchEntrez(formInput);
-        // let mappedResults = 
-        setResults(res)
-
-        // console.log(results)
+        setResults(res as SequenceRecord[])
     }
     
+    const handleResultClick = (record: SequenceRecord) => {
+        console.log('here')
+        let modal = <Modal 
+        classes="bg-white px-2 flex flex-wrap h-3/4" 
+        childClasses="max-h-[85vh] overflow-x-scroll m-10 max-w-[85vw]" 
+        className="z-[0]" 
+        setShowModal={setShowModal} 
+        actionBar={actionBar}>
+            <SequenceRecordView record={record}/>
+        </Modal>;
+        setModal(modal);
+        setShowModal(true)
+        
+    }
     outputResults = results.map((record)=>{
-        let annotations = JSON.parse(JSON.stringify(record.annotations));
-        // console.log(JSON.parse(annotations))
-        return <div className="m-1 rounded-lg border p-4 w-3/4">
-                <div>{record.name}</div>
-                <div>{record.id}</div>
-                <div>{record.description}</div>
-                <div>{record.seq.slice(0,40)+' ...'}</div>
-                <div>{record.dbxrefs}</div>
-                {/* <div>{JSON.parse(annotations)['molecule_type']}</div> */}
-                {/* <div>{record.letter_annotations}</div> */}
-            </div>
+        return (
+            <button onClick={()=>handleResultClick(record)} >
+                <div className="m-1 rounded-lg border p-4 w-3/4">
+                    <div>{record.name}</div>
+                    <div>{record.id}</div>
+                    <div>{record.description}</div>
+                    <div>{record.seq.slice(0,40)+' ...'}</div>
+                    <div>{record.dbxrefs}</div>
+                </div>
+            </button>
+        )
     })
 
 
@@ -75,6 +94,7 @@ export const EntrezSearch = () => {
 
             </div>
             {/* {results} */}
+            {showModal && modal}
         </div>
     )
 }

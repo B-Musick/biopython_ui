@@ -34,7 +34,7 @@ const Modal: React.FC<ModalProps> = ({ setShowModal, children, classes, childCla
                 <div className={`absolute right-1 top-0`}>
                     <button className='modalButton text-2xl mt-1' onClick={handleModalClose}><IoIosCloseCircle /></button>
                 </div>
-                <div className={`flex flex-col justify-between h-fit ${childClasses}`}>
+                <div className={`flex flex-col justify-between ${childClasses}`}>
                     {children}
                 </div>
             </div>
