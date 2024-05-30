@@ -21,3 +21,8 @@ export type SequenceFeatureLocation =  {
     ref_db: string,
     strand: string
 }
+
+export type FastaFile = {
+    records: SequenceRecord[],
+    fileType: string
+}
