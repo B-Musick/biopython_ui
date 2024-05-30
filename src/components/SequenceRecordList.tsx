@@ -1,14 +1,16 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { SequenceRecord } from "../lib/types"
 import Modal from "./Modal";
 import SequenceRecordView from "./SequenceRecordView";
 import { ListCard } from "./ListCard";
+import { SequenceRecordsContext } from "../context/SequenceRecordsContext";
 
 interface SequenceRecordListProps {
     records: SequenceRecord[]
 }
 
 export const SequenceRecordList: React.FC<SequenceRecordListProps> = ({records}) => {
+    const { savedRecords, setSavedRecords } = useContext(SequenceRecordsContext)
     const [showModal, setShowModal] = useState(false);
     const [modal, setModal] = useState();
     
@@ -24,10 +26,14 @@ export const SequenceRecordList: React.FC<SequenceRecordListProps> = ({records})
         setModal(modal);
         setShowModal(true)
     }
-
+    
     let results = records.map((record)=>{
+        let actionButtons = <div className="z-[1] hover:brightness-125 bg-blue-200">
+            <button onClick={(e)=>{e.stopPropagation();setSavedRecords([...records, record])}}>use</button>
+        </div>
+
         return (
-            <ListCard item={record} handleClick={handleResultClick} title={record.description}>
+            <ListCard actionButtons={actionButtons} key={record.id} item={record} handleClick={handleResultClick} title={record.description}>
                 <div><span className="font-bold">id: </span>{record.id}</div>
                 <div className="break-all"><span className="font-bold">seq: </span>{record.seq.slice(0,40)+' ...'}</div>
             </ListCard>

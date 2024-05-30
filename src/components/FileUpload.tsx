@@ -5,6 +5,7 @@ import { FastaFile } from "../lib/types"
 import Select from "react-select"
 
 export const FileUpload = () => {
+
     const [results, setResults] = useState<FastaFile>()
     const [formInput, setFormInput] = useState(
         {fileType: '', file: null}
@@ -24,7 +25,12 @@ export const FileUpload = () => {
     return (
         <div className="w-full h-full flex flex-col">
             <form encType="multipart/form-data" onSubmit={handleSubmit}>
-                <Select placeholder="File Type" options={fileTypeSelections} onChange={(val)=>setFormInput({...formInput, fileType: val.value})} values={[]} />
+                <Select 
+                    placeholder="File Type" 
+                    options={fileTypeSelections} 
+                    onChange={(val)=>setFormInput({...formInput, fileType: val.value})} 
+                    values={[]} 
+                />
 
                 <input type="file" onChange={(e)=>setFormInput({...formInput, file: e.target.files[0]})} name="genetic_file"/>
 
