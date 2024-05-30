@@ -4,11 +4,11 @@ import { FaInfoCircle, FaSearch } from "react-icons/fa"
 import { FaTableCells } from "react-icons/fa6"
 import { NavLinkInfo } from "../lib/propTypes"
 
-export const EntrezPage = () => {
+export const FilePage = () => {
     const sectionItems = [
-        {title: 'Info', url: '/entrez/info', icon: <FaInfoCircle />} as NavLinkInfo,
-        {title: 'Search', url: '/entrez/search', icon: <FaSearch />} as NavLinkInfo,
-        {title: 'Recent', url: '/entrez/recent', icon: <FaTableCells />} as NavLinkInfo,
+        {title: 'Info', url: '/file/info', icon: <FaInfoCircle />} as NavLinkInfo,
+        {title: 'Upload', url: '/file/upload', icon: <FaSearch />} as NavLinkInfo,
+        {title: 'Recent', url: '/file/recent', icon: <FaTableCells />} as NavLinkInfo,
     ]
     return (
         <div className="flex">

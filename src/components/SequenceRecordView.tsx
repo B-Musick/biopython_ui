@@ -7,8 +7,6 @@ interface SequenceRecordViewProps {
 }
 const SequenceRecordView: React.FC<SequenceRecordViewProps> = ({record, classes}) => {
     let stringAttributes = ['id', 'name', 'description'];
-    // console.log('annotations: ', record.annotations)
-    // console.log('letter_annotations: ', record.letter_annotations)
     let recordAttributes = stringAttributes.map((attr, index)=>{
         return (
             <div className="flex justify-between">
@@ -24,6 +22,7 @@ const SequenceRecordView: React.FC<SequenceRecordViewProps> = ({record, classes}
         'C': 'bg-amber-300',
         'G': 'bg-green-400'
     }
+
     let sequence = <div>
         <div className="flex flex-row flex-wrap py-4">{record.seq.split('').map((nuc)=>{
             return (
@@ -50,16 +49,22 @@ const SequenceRecordView: React.FC<SequenceRecordViewProps> = ({record, classes}
         )
     })
 
-    let annotationsTable = <Table 
-        cols={[{name: 'type', style: {fontWeight: '700' }}, {name: 'value'}]}
-        rows={Object.keys(record.annotations).map((key, index)=>{
-            return {type: key, value: record.annotations[key]}
-        })} 
-        hiddenCols={[]} 
-        sortable={[]} 
-        onRowClick={()=>{}}
-        classes={`overflow-scroll ${classes} sequence-feature`}
-    />
+    let annotationsTable = (
+        <>
+            <div className="p-3 bg-cyan-950 w-full text-white text-center my-2">Annotations</div>
+
+            <Table 
+                cols={[{name: 'type', style: {fontWeight: '700'  }}, {name: 'value'}]}
+                rows={Object.keys(record.annotations).map((key, index)=>{
+                    return {type: key, value: record.annotations[key]}
+                })} 
+                hiddenCols={[]} 
+                sortable={[]} 
+                onRowClick={()=>{}}
+                classes={`overflow-scroll ${classes} sequence-feature`}
+            />
+        </>
+    )
 
     return (
         <div>
@@ -69,7 +74,6 @@ const SequenceRecordView: React.FC<SequenceRecordViewProps> = ({record, classes}
             {sequence}
             <div className="p-3 bg-cyan-950 w-full text-white text-center my-2">Features</div>
             {qualifiersTable}
-            <div className="p-3 bg-cyan-950 w-full text-white text-center my-2">Annotations</div>
             {annotationsTable}
         </div>
     )

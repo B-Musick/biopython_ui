@@ -1,0 +1,45 @@
+import { useState } from "react";
+import { SequenceRecord } from "../lib/types"
+import Modal from "./Modal";
+import SequenceRecordView from "./SequenceRecordView";
+import { ListCard } from "./ListCard";
+
+interface SequenceRecordListProps {
+    records: SequenceRecord[]
+}
+
+export const SequenceRecordList: React.FC<SequenceRecordListProps> = ({records}) => {
+    const [showModal, setShowModal] = useState(false);
+    const [modal, setModal] = useState();
+    
+    const handleResultClick = (record: SequenceRecord) => {
+        let modal = <Modal 
+            classes="bg-white px-2 flex flex-wrap h-3/4" 
+            childClasses="max-h-[85vh] overflow-x-scroll m-10 max-w-[85vw]" 
+            className="z-[0]" 
+            setShowModal={setShowModal} 
+            actionBar={""}>
+                <SequenceRecordView record={record}/>
+            </Modal>;
+        setModal(modal);
+        setShowModal(true)
+    }
+
+    let results = records.map((record)=>{
+        return (
+            <ListCard item={record} handleClick={handleResultClick} title={record.description}>
+                <div><span className="font-bold">id: </span>{record.id}</div>
+                <div className="break-all"><span className="font-bold">seq: </span>{record.seq.slice(0,40)+' ...'}</div>
+            </ListCard>
+        )
+    })
+
+    return (
+        <>
+            <div className="flex flex-col h-screen overflow-scroll w-full items-center">
+                {results}
+            </div>
+            {showModal && modal}
+        </>
+    )
+}
