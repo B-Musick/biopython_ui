@@ -7,5 +7,6 @@ export interface NavLinkInfo {
 export interface ListCardProps {
     title: string,
     item: Object,
-    handleClick: (item:any) => {}
+    handleClick: (item:any) => {},
+    actionButtons: any
 }
