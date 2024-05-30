@@ -16,7 +16,8 @@ const Table: React.FC<TableProps> = ({ cols, rows, hiddenCols, sortable, onRowCl
             selector: row => row[col.name],
             omit: hiddenCols.includes(col.name),
             sortable: sortable.includes(col.name),
-            style: col.style
+            style: col.style,
+            wrap:true
         }
     })
 

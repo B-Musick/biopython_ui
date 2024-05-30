@@ -11,7 +11,7 @@ export const EntrezPage = () => {
         {title: 'Recent', url: '/entrez/recent', icon: <FaTableCells />} as NavLinkInfo,
     ]
     return (
-        <div className="flex h-full">
+        <div className="flex">
             <SectionNavigation sections={sectionItems} />
 
             <Outlet />

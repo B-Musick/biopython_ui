@@ -9,7 +9,11 @@ export const FileUpload = () => {
     const [formInput, setFormInput] = useState(
         {fileType: '', file: null}
     );
-    let fileTypeSelections = [{ value: 'fasta', label: 'fasta' }, { value: 'gbk', label: 'genbank' }]
+    const fileTypeSelections = [
+        { value: 'fasta', label: 'fasta' }, 
+        { value: 'gb', label: 'genbank' }
+    ]
+
     const handleSubmit = async (e) => {
         e.preventDefault()
 

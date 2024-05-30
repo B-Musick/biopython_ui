@@ -18,7 +18,7 @@ const SectionNavigation: React.FC<SectionNavigationProps> = ({sections}) =>{
     })
 
     return (
-        <nav className="h-full  flex flex-col justify-start bg-gray-100">
+        <nav className="flex flex-col justify-start bg-gray-100">
             {navSections}
         </nav>
     )

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { SequenceRecord } from "../lib/types"
 import Modal from "./Modal";
 import SequenceRecordView from "./SequenceRecordView";
+import { ListCard } from "./ListCard";
 
 interface SequenceRecordListProps {
     records: SequenceRecord[]
@@ -11,20 +12,6 @@ export const SequenceRecordList: React.FC<SequenceRecordListProps> = ({records})
     const [showModal, setShowModal] = useState(false);
     const [modal, setModal] = useState();
     
-    let results = records.map((record)=>{
-        return (
-            <button onClick={()=>handleResultClick(record)} >
-                <div className="m-1 rounded-lg border p-4 w-3/4">
-                    <div>{record.name}</div>
-                    <div>{record.id}</div>
-                    <div>{record.description}</div>
-                    <div>{record.seq.slice(0,40)+' ...'}</div>
-                    <div>{record.dbxrefs}</div>
-                </div>
-            </button>
-        )
-    })
-
     const handleResultClick = (record: SequenceRecord) => {
         let modal = <Modal 
             classes="bg-white px-2 flex flex-wrap h-3/4" 
@@ -37,6 +24,15 @@ export const SequenceRecordList: React.FC<SequenceRecordListProps> = ({records})
         setModal(modal);
         setShowModal(true)
     }
+
+    let results = records.map((record)=>{
+        return (
+            <ListCard item={record} handleClick={handleResultClick} title={record.description}>
+                <div><span className="font-bold">id: </span>{record.id}</div>
+                <div className="break-all"><span className="font-bold">seq: </span>{record.seq.slice(0,40)+' ...'}</div>
+            </ListCard>
+        )
+    })
 
     return (
         <>
