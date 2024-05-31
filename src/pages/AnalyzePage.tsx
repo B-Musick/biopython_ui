@@ -36,7 +36,7 @@ function AnalyzePage(){
     return (
         <div className="flex h-full">
             <SectionNavigation sections={sectionItems} />
-            <div>
+            <div className="w-full">
                 <div className="flex flex-row h-fit w-full">
                     <Select 
                         placeholder="Select Sequence" 

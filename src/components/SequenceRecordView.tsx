@@ -40,6 +40,7 @@ const SequenceRecordView: React.FC<SequenceRecordViewProps> = ({record, classes}
                     rows={Object.keys(feature.qualifiers).map((key, index)=>{
                         return {type: key, value: feature.qualifiers[key][0]}
                     })} 
+                    fixedHeader={false}
                     hiddenCols={[]} 
                     sortable={[]} 
                     onRowClick={()=>{}}
@@ -57,7 +58,8 @@ const SequenceRecordView: React.FC<SequenceRecordViewProps> = ({record, classes}
                 cols={[{name: 'type', style: {fontWeight: '700'  }}, {name: 'value'}]}
                 rows={Object.keys(record.annotations).map((key, index)=>{
                     return {type: key, value: record.annotations[key]}
-                })} 
+                })}
+                fixedHeader={false}
                 hiddenCols={[]} 
                 sortable={[]} 
                 onRowClick={()=>{}}
