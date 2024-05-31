@@ -18,7 +18,7 @@ function AnalyzePage(){
     console.log(selectedRecord)
     const sectionItems = [
         {title: 'Nucleotide Count', url: '/analyze/nucleotide-count', icon: null} as NavLinkInfo,
-        {title: 'Transcribe', url: '/analyze/transcribe', icon: null} as NavLinkInfo,
+        {title: 'Sequence Functions', url: '/analyze/sequence-functions', icon: null} as NavLinkInfo,
     
     ]
 
