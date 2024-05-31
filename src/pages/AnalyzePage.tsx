@@ -6,6 +6,7 @@ import { Outlet } from "react-router-dom"
 import SectionNavigation from "../components/SectionNavigation"
 import Modal from "../components/Modal"
 import SequenceRecordView from "../components/SequenceRecordView"
+import { NavLinkInfo } from "../lib/propTypes"
 
 function AnalyzePage(){
     const { savedRecords, setSavedRecords } = useContext(SequenceRecordsContext)
@@ -17,6 +18,7 @@ function AnalyzePage(){
     console.log(selectedRecord)
     const sectionItems = [
         {title: 'Nucleotide Count', url: '/analyze/nucleotide-count', icon: null} as NavLinkInfo,
+        {title: 'Transcribe', url: '/analyze/transcribe', icon: null} as NavLinkInfo,
     
     ]
 

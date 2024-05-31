@@ -9,6 +9,7 @@ import { useState } from "react"
 import { SequenceRecord } from "./lib/types"
 import AnalyzePage from "./pages/AnalyzePage"
 import NucleotideCount from "./components/analyze/NucleotideCount"
+import Transcribe from "./components/analyze/Transcribe"
 
 function App() {
   const [savedRecords, setSavedRecords] = useState<SequenceRecord[]>([])
@@ -35,6 +36,7 @@ function App() {
             </Route>
             <Route path="analyze"  element={<AnalyzePage />}>
                 <Route path="nucleotide-count" element={<NucleotideCount />} />
+                <Route path="transcribe" element={<Transcribe />} />
             </Route>
           </Routes>
         </BrowserRouter>

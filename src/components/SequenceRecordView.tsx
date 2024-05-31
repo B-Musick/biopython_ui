@@ -1,4 +1,5 @@
 import { SequenceRecord } from "../lib/types"
+import Sequence from "./Sequence";
 import Table from "./Table"
 
 interface SequenceRecordViewProps {
@@ -16,20 +17,20 @@ const SequenceRecordView: React.FC<SequenceRecordViewProps> = ({record, classes}
         )
     })
 
-    const nucleotideColor = {
-        'A': 'bg-red-100',
-        'T': 'bg-blue-200',
-        'C': 'bg-amber-300',
-        'G': 'bg-green-400'
-    }
+    // const nucleotideColor = {
+    //     'A': 'bg-red-100',
+    //     'T': 'bg-blue-200',
+    //     'C': 'bg-amber-300',
+    //     'G': 'bg-green-400'
+    // }
 
-    let sequence = <div>
-        <div className="flex flex-row flex-wrap py-4">{record.seq.split('').map((nuc)=>{
-            return (
-                <div className={`${nucleotideColor[nuc]} w-[15px] h-[50px] mt-2 flex justify-center items-center border border-black p-2`}>{nuc}</div>
-            )
-        })}</div>
-    </div>
+    // let sequence = <div>
+    //     <div className="flex flex-row flex-wrap py-4">{record.seq.split('').map((nuc)=>{
+    //         return (
+    //             <div className={`${nucleotideColor[nuc]} w-[15px] h-[50px] mt-2 flex justify-center items-center border border-black p-2`}>{nuc}</div>
+    //         )
+    //     })}</div>
+    // </div>
 
     let qualifiersTable = record.features.map((feature)=>{
         return (
@@ -73,7 +74,7 @@ const SequenceRecordView: React.FC<SequenceRecordViewProps> = ({record, classes}
             <div className="p-3 bg-emerald-500 w-full text-white text-center my-2">Info</div>
             {recordAttributes}
             <div className="p-3 bg-violet-500 w-full text-white text-center my-2">Sequence</div>
-            {sequence}
+            <Sequence sequence={record.seq}/>
             <div className="p-3 bg-cyan-950 w-full text-white text-center my-2">Features</div>
             {qualifiersTable}
             {annotationsTable}
