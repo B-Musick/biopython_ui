@@ -8,6 +8,7 @@ import { SequenceRecordsContext } from "./context/SequenceRecordsContext"
 import { useState } from "react"
 import { SequenceRecord } from "./lib/types"
 import AnalyzePage from "./pages/AnalyzePage"
+import NucleotideCount from "./components/analyze/NucleotideCount"
 
 function App() {
   const [savedRecords, setSavedRecords] = useState<SequenceRecord[]>([])
@@ -33,7 +34,7 @@ function App() {
                 <Route path="upload" element={<FileUpload />}/>
             </Route>
             <Route path="analyze"  element={<AnalyzePage />}>
-                {/* <Route path="" element={<EntrezInfo />} /> */}
+                <Route path="nucleotide-count" element={<NucleotideCount />} />
             </Route>
           </Routes>
         </BrowserRouter>
