@@ -10,6 +10,7 @@ import { SequenceRecord } from "./lib/types"
 import AnalyzePage from "./pages/AnalyzePage"
 import NucleotideCount from "./components/analyze/NucleotideCount"
 import SequenceFunctions from "./components/analyze/SequenceFunctions"
+import Translate from "./components/analyze/Translate"
 
 function App() {
   const [savedRecords, setSavedRecords] = useState<SequenceRecord[]>([])
@@ -37,6 +38,7 @@ function App() {
             <Route path="analyze"  element={<AnalyzePage />}>
                 <Route path="nucleotide-count" element={<NucleotideCount />} />
                 <Route path="sequence-functions" element={<SequenceFunctions />} />
+                <Route path="translate" element={<Translate />} />
             </Route>
           </Routes>
         </BrowserRouter>
