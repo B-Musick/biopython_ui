@@ -4,6 +4,7 @@ import { useOutletContext } from "react-router-dom";
 import { transcribe } from "../../lib/helpers";
 import { codonTable, inverseCodonTable } from "../../lib/constants";
 import ClipboardTextbox from "../ClipboardTextbox";
+import { Tooltip } from 'react-tooltip'
 
 function Translate(){
     const [selectedRecord] = useOutletContext();
@@ -62,8 +63,20 @@ function Translate(){
     }, [transcribedSeq])
     
     let proteinAminoAcids = translatedSeq.map((protein)=>{
-        return protein.split('').map((aa)=>{
-            return <div className={`${inverseCodonTable[aa].color} p-2 rounded-full bg-red-200 w-[40px] text-center mb-2`}>{inverseCodonTable[aa].short}</div>
+        return protein.split('').map((aa, idx)=>{
+            return (
+                <a data-tooltip-id="my-tooltip" data-tooltip-content={`${inverseCodonTable[aa].full}`}>
+                    <div className={`${inverseCodonTable[aa].color} p-2 rounded-full bg-red-200 w-[40px] text-center mb-2`}>
+                        {inverseCodonTable[aa].short}
+
+                        {idx == 0 &&
+                            <>
+                                <Tooltip id="my-tooltip" />
+                            </>
+                        }
+                    </div>
+                </a>
+            )
         })
     })
 
@@ -74,6 +87,7 @@ function Translate(){
                 {proteinAminoAcids}
             </div>
         </div>
+        
     )
 }
 
