@@ -65,15 +65,11 @@ function Translate(){
     let proteinAminoAcids = translatedSeq.map((protein)=>{
         return protein.split('').map((aa, idx)=>{
             return (
-                <a data-tooltip-id="my-tooltip" data-tooltip-content={`${inverseCodonTable[aa].full}`}>
+                <a data-tooltip-id={`aa-tooltip-${idx}`} data-tooltip-content={`${inverseCodonTable[aa].full}`}>
                     <div className={`${inverseCodonTable[aa].color} p-2 rounded-full bg-red-200 w-[40px] text-center mb-2`}>
                         {inverseCodonTable[aa].short}
 
-                        {idx == 0 &&
-                            <>
-                                <Tooltip id="my-tooltip" />
-                            </>
-                        }
+                        <Tooltip id={`aa-tooltip-${idx}`} />
                     </div>
                 </a>
             )
