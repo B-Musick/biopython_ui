@@ -25,7 +25,7 @@ function Motif(){
 
         for(let i = 0; i<sequence.length-motif.length+1; i++) {
             if(sequence.substring(i, i+motif.length) == motif){
-                locationsFound.push(i)
+                locationsFound.push(i+1)
             }
         }
         console.log(locationsFound)
