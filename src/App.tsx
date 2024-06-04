@@ -11,6 +11,8 @@ import AnalyzePage from "./pages/AnalyzePage"
 import NucleotideCount from "./components/analyze/NucleotideCount"
 import SequenceFunctions from "./components/analyze/SequenceFunctions"
 import Translate from "./components/analyze/Translate"
+import Motif from "./components/analyze/Motif"
+import MultipleSequenceAnalysisPage from "./pages/MultipleSequenceAnalysisPage"
 
 function App() {
   const [savedRecords, setSavedRecords] = useState<SequenceRecord[]>([])
@@ -24,6 +26,7 @@ function App() {
             <NavLink to="/entrez" className="w-full text-center hover:!bg-green-400 p-1">Entrez</NavLink>
             <NavLink to="/file" className="w-full text-center hover:!bg-green-400 p-1">File</NavLink>
             <NavLink to="/analyze" className="w-full text-center hover:!bg-green-400 p-1">Analyze</NavLink>
+            <NavLink to="/multiple" className="w-full text-center hover:!bg-green-400 p-1">Multiple</NavLink>
           </nav>
           <Routes>
             <Route path="/" element={<HomePage />} />
@@ -39,6 +42,10 @@ function App() {
                 <Route path="nucleotide-count" element={<NucleotideCount />} />
                 <Route path="sequence-functions" element={<SequenceFunctions />} />
                 <Route path="translate" element={<Translate />} />
+                <Route path="motif" element={<Motif />} />
+            </Route>
+            <Route path="multiple" element={<MultipleSequenceAnalysisPage/>}>
+                <Route path="motif" element={<Motif />} />
             </Route>
           </Routes>
         </BrowserRouter>

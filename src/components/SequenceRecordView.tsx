@@ -37,7 +37,7 @@ const SequenceRecordView: React.FC<SequenceRecordViewProps> = ({record, classes}
             <>
                 <h3 className="w-full bg-cyan-900 text-white text-center p-1 mt-4">{feature.type}</h3>
                 <Table 
-                    cols={[{name: 'type', style: {fontWeight: '700' }}, {name: 'value'}]} 
+                    cols={[{name: 'type', style: {fontWeight: '700' }}, {name: 'value', wrap: true}]} 
                     rows={Object.keys(feature.qualifiers).map((key, index)=>{
                         return {type: key, value: feature.qualifiers[key][0]}
                     })} 
@@ -56,7 +56,7 @@ const SequenceRecordView: React.FC<SequenceRecordViewProps> = ({record, classes}
             <div className="p-3 bg-cyan-950 w-full text-white text-center my-2">Annotations</div>
 
             <Table 
-                cols={[{name: 'type', style: {fontWeight: '700'  }}, {name: 'value'}]}
+                cols={[{name: 'type', style: {fontWeight: '700'  }}, {name: 'value', wrap: true}]}
                 rows={Object.keys(record.annotations).map((key, index)=>{
                     return {type: key, value: record.annotations[key]}
                 })}

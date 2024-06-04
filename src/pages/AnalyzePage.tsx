@@ -15,11 +15,11 @@ function AnalyzePage(){
     const [modal, setModal] = useState();
 
     let dropdownSelections = savedRecords.map((rec)=>{return {value: rec, label: rec.id}})
-    console.log(selectedRecord)
     const sectionItems = [
         {title: 'Nucleotide Count', url: '/analyze/nucleotide-count', icon: null} as NavLinkInfo,
         {title: 'Sequence Functions', url: '/analyze/sequence-functions', icon: null} as NavLinkInfo,
         {title: 'Translate', url: '/analyze/translate', icon: null} as NavLinkInfo,
+        {title: 'Motif', url: '/analyze/motif', icon: null} as NavLinkInfo,
     ]
 
     const handleResultClick = () => {
@@ -54,7 +54,6 @@ function AnalyzePage(){
             </div>
             {showModal && modal}
         </div>
-        
     )
 }
 
