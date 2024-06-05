@@ -1,4 +1,4 @@
-import { BrowserRouter, NavLink, Route, Router, Routes } from "react-router-dom"
+import { BrowserRouter, NavLink, Route, Router, Routes, Navigate } from "react-router-dom"
 import { HomePage } from "./pages/HomePage"
 import { EntrezPage } from "./pages/EntrezPage"
 import { EntrezSearch } from "./components/EntrezSearch"
@@ -9,6 +9,20 @@ import { useState } from "react"
 import { SequenceRecord } from "./lib/types"
 import AnalyzePage from "./pages/AnalyzePage"
 import NucleotideCount from "./components/analyze/NucleotideCount"
+import Register from "./pages/Register"
+import Login from "./pages/Login"
+import ProtectedRoute from "./components/ProtectedRoute"
+import NotFound from "./pages/NotFound"
+
+function Logout() {
+  localStorage.clear()
+  return <Navigate to="/login" />
+}
+
+function RegisterAndLogout() {
+  localStorage.clear()
+  return <Register />
+}
 
 function App() {
   const [savedRecords, setSavedRecords] = useState<SequenceRecord[]>([])
@@ -25,7 +39,17 @@ function App() {
           </nav>
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="entrez"  element={<EntrezPage />}>
+            <Route path="/login" element={<Login />} />
+            <Route path="/logout" element={<Logout />} />
+            <Route path="/register" element={<Register />} />
+            <Route 
+              path="entrez"  
+              element={
+                <ProtectedRoute>
+                  <EntrezPage />
+                </ProtectedRoute>
+              }
+            >
                 {/* <Route path="" element={<EntrezInfo />} /> */}
                 <Route path="search" element={<EntrezSearch />}/>
             </Route>
@@ -36,6 +60,7 @@ function App() {
             <Route path="analyze"  element={<AnalyzePage />}>
                 <Route path="nucleotide-count" element={<NucleotideCount />} />
             </Route>
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
       </SequenceRecordsContext.Provider>
