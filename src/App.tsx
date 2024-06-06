@@ -13,6 +13,7 @@ import Register from "./pages/Register"
 import Login from "./pages/Login"
 import ProtectedRoute from "./components/ProtectedRoute"
 import NotFound from "./pages/NotFound"
+import SequencePage from './pages/SequencePage'
 
 function Logout() {
   localStorage.clear()
@@ -36,12 +37,14 @@ function App() {
             <NavLink to="/entrez" className="w-full text-center hover:!bg-green-400 p-1">Entrez</NavLink>
             <NavLink to="/file" className="w-full text-center hover:!bg-green-400 p-1">File</NavLink>
             <NavLink to="/analyze" className="w-full text-center hover:!bg-green-400 p-1">Analyze</NavLink>
+            <NavLink to="/sequences" className="w-full text-center hover:!bg-green-400 p-1">Sequences</NavLink>
           </nav>
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/logout" element={<Logout />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/sequences" element={<ProtectedRoute><SequencePage /></ProtectedRoute>} />
             <Route 
               path="entrez"  
               element={
@@ -51,7 +54,7 @@ function App() {
               }
             >
                 {/* <Route path="" element={<EntrezInfo />} /> */}
-                <Route path="search" element={<EntrezSearch />}/>
+                <Route path="search" element={<ProtectedRoute><EntrezSearch /></ProtectedRoute>}/>
             </Route>
             <Route path="file"  element={<FilePage />}>
                 {/* <Route path="" element={<EntrezInfo />} /> */}

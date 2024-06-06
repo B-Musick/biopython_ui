@@ -33,8 +33,8 @@ export const SequenceRecordList: React.FC<SequenceRecordListProps> = ({records})
         </div>
 
         return (
-            <ListCard actionButtons={actionButtons} key={record.id} item={record} handleClick={handleResultClick} title={record.description}>
-                <div><span className="font-bold">id: </span>{record.id}</div>
+            <ListCard actionButtons={actionButtons} key={record.id|| record.biopython_id} item={record} handleClick={handleResultClick} title={record.description}>
+                <div><span className="font-bold">id: </span>{record.id || record.biopython_id}</div>
                 <div className="break-all"><span className="font-bold">seq: </span>{record.seq.slice(0,40)+' ...'}</div>
             </ListCard>
         )
