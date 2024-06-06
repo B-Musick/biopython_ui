@@ -2,57 +2,37 @@ import { useEffect, useState } from "react"
 import api from '../api/interceptor'
 import Table from "../components/Table"
 import { MdDeleteForever } from "react-icons/md";
+import { SequenceRecord } from "../lib/types";
+import { createSequence, getSequences, deleteSequence } from "../api/sequences";
+import useSaveMutation from "../hooks/useSaveMutation";
+import { useQuery } from "@tanstack/react-query";
 
 function SequencePage() {
     const [sequences, setSequences] = useState([])
-    const [title, setTitle] = useState("")
-    const [sequence, setSequence] = useState("")
+    const [formData, setFormData] = useState<SequenceRecord>({"seq":"", "name":"", "description":"", dbxrefs:null, features: null, annotations: null, letter_annotations: null} as SequenceRecord)
+    const [save, saveIcon] = useSaveMutation(createSequence, ()=>{}, 'sequences')
+    const [deleteItem] = useSaveMutation(deleteSequence, ()=>{}, 'sequences')
 
+    const sequencesQuery = useQuery({
+        queryKey: ["sequences"],
+        queryFn: getSequences,
+    })
 
-    useEffect(()=>{
-        getSequences()
-    }, []);
-
-    const getSequences = () => {
-        api
-            .get("/api/sequences/")
-            .then((res) => res.data)
-            .then((data) => {
-                setSequences(data);
-                console.log(data);
-            })
-            .catch((err) => alert(err));
+    const handleFormChange = (e) => {
+        e.preventDefault();
+        setFormData({...formData, [e.target.name]:e.target.value})
     }
 
-
-    const deleteSequence = (id) => {
-        api
-            .delete(`/api/sequences/delete/${id}/`)
-            .then((res) => {
-                if (res.status === 204) alert("Sequence deleted!");
-                else alert("Failed to delete Sequence.");
-                getSequences();
-            })
-            .catch((error) => alert(error));
-    };
-
-    const createSequence = (e) => {
+    const handleFormSubmit = (e) => {
         e.preventDefault();
-        api
-            .post("/api/sequences/", { "seq":sequence, "name":title, "description":"", dbxrefs:null, features: null, annotations: null, letter_annotations: null })
-            .then((res) => {
-                if (res.status === 201) alert("Sequence created!");
-                else alert("Failed to make note.");
-                getSequences();
-            })
-            .catch((err) => console.log(err.response.data));
-    };
+        save(formData)
+    }
 
     const columns = [{name: 'id'},{name: 'description'}, {name:'seq'}, {name: "action", button: true, cell: (row) => 
         (
             <div>
             <button
-              onClick={() => deleteSequence(row.id)}
+              onClick={() => deleteItem(row.id)}
             >  
               <MdDeleteForever className="text-red-500 w-5 h-5" />
             </button>
@@ -61,11 +41,20 @@ function SequencePage() {
           )
     }]
 
+    let rows = []
+
+    if(sequencesQuery.status == 'loading') console.log('loading')
+    if(sequencesQuery.status == 'error') console.log(sequencesQuery.error)
+    else if(sequencesQuery.status == 'success'){
+
+        rows = sequencesQuery.data
+    }
+
     return (
         <div>
             <div>
                 <h2>Sequences</h2>
-                <Table cols={columns} rows={sequences} hiddenCols={[]} sortable={[]} onRowClick={function (): {} {
+                <Table cols={columns} rows={rows} hiddenCols={[]} sortable={[]} onRowClick={function (): {} {
                     throw new Error("Function not implemented.")
                 } } rowConditionals={undefined} title={""} fixedHeader={false} />
                 {/* {sequences.map((note) => (
@@ -73,25 +62,37 @@ function SequencePage() {
                 ))} */}
             </div>
             <h2>Create a Note</h2>
-            <form onSubmit={createSequence}>
-                <label htmlFor="title">Title:</label>
+            <form onSubmit={handleFormSubmit}>
+                <label htmlFor="name">Title:</label>
                 <br />
                 <input
                     type="text"
-                    id="title"
-                    name="title"
+                    id="name"
+                    name="name"
                     required
-                    onChange={(e) => setTitle(e.target.value)}
-                    value={title}
+                    onChange={handleFormChange}
+                    value={formData.name}
                 />
-                <label htmlFor="sequence">Sequence:</label>
+
+                <label htmlFor="description">Title:</label>
+                <br />
+                <input
+                    type="text"
+                    id="description"
+                    name="description"
+                    required
+                    onChange={handleFormChange}
+                    value={formData.description}
+                />
+
+                <label htmlFor="seq">Sequence:</label>
                 <br />
                 <textarea
-                    id="sequence"
-                    name="sequence"
+                    id="seq"
+                    name="seq"
                     required
-                    value={sequence}
-                    onChange={(e) => setSequence(e.target.value)}
+                    value={formData.seq}
+                    onChange={handleFormChange}
                 ></textarea>
                 <br />
                 <input type="submit" value="Submit"></input>
