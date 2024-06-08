@@ -63,7 +63,7 @@ function App() {
       <CurrentUserContext.Provider value={{currentUser, setCurrentUser}}>
         <SequenceRecordsContext.Provider value={{savedRecords, setSavedRecords}}>
           <BrowserRouter>
-            <nav className="w-full bg-slate-600 text-white flex">
+            <nav className="fixed top-0 z-[2] w-full bg-slate-950 border-b text-white flex">
               <div className="flex w-[60%] items-center">
                 <NavLink to="/" className="w-full text-center hover:!bg-slate-500 p-3 hover:brightness-125">Home</NavLink>
                 <NavLink to="/entrez" className="w-full text-center hover:!bg-slate-500 p-3">Entrez</NavLink>
