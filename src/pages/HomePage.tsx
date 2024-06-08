@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Modal from "../components/Modal";
+import DNAAnimation from "../components/DNAAnimation";
 
 export const HomePage = () => {
     const [showModal, setShowModal] = useState(false);
@@ -17,9 +18,9 @@ export const HomePage = () => {
 
     return (
         <>
-            <div>Home</div>
-            <button onClick={()=>setShowModal(true)}>Show Modal</button>
-            {showModal && modal}
+            <div className="fixed z-[0] h-full w-1/2 right-0">
+                <DNAAnimation />
+            </div>
         </>
     )
 }

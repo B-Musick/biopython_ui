@@ -3,6 +3,7 @@ import api from "../api/interceptor";
 import { useNavigate } from "react-router-dom";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../lib/constants";
 import { login, register } from "../api/auth";
+import DNAAnimation from "./DNAAnimation";
 // import LoadingIndicator from "./LoadingIndicator";
 
 function AuthForm({ route, method }) {
@@ -41,7 +42,7 @@ function AuthForm({ route, method }) {
 
     return (
         <div className="flex w-full h-full justify-center items-center bg-slate-950">
-            <form onSubmit={handleSubmit} className="flex flex-col w-1/4 h-fit rounded-xl p-4 bg-gray-200 items-center bg-slate-800">
+            <form onSubmit={handleSubmit} className="z-[2] flex flex-col w-1/4 h-fit rounded-xl p-4 bg-gray-200 items-center bg-slate-800">
                 <input
                     className="form-input w-3/4 rounded m-1 p-1"
                     type="text"
@@ -72,7 +73,9 @@ function AuthForm({ route, method }) {
 
             </form>
 
-
+            <div className="fixed z-[0] h-full w-1/2 right-0">
+                <DNAAnimation />
+            </div>
         </div>
     );
 }
