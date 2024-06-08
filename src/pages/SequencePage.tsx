@@ -46,7 +46,6 @@ function SequencePage() {
     if(sequencesQuery.status == 'loading') console.log('loading')
     if(sequencesQuery.status == 'error') console.log(sequencesQuery.error)
     else if(sequencesQuery.status == 'success'){
-
         rows = sequencesQuery.data
     }
 
