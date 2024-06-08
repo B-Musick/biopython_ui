@@ -59,15 +59,16 @@ function NucleotideCount() {
     })
 
     return (
-        <div className="flex">        
+        <div className="flex w-full justify-evenly items-center flex-wrap">        
             <BarGraph 
                 data={data}
                 options={options} 
-                className={"w-1/2 m-5"}
+                className={"min-w-1/2 m-5 bg-slate-800 rounded-xl p-2"}
             />
 
-            <div>
+            <div className="rounded-xl">
                 <Table 
+                    theme={"dark"}
                     cols={columns}
                     rows={rows} 
                     hiddenCols={[]} 

@@ -1,22 +1,14 @@
-import { useEffect, useState } from "react"
-import api from '../api/interceptor'
-import Table from "../components/Table"
-import { MdDeleteForever } from "react-icons/md";
+import { useState } from "react"
 import { SequenceRecord } from "../lib/types";
-import { createSequence, getSequences, deleteSequence } from "../api/sequences";
+import { createSequence, getSequences } from "../api/sequences";
 import useSaveMutation from "../hooks/useSaveMutation";
 import { useQuery } from "@tanstack/react-query";
+import SequenceTable from "../components/SequenceTable";
+import DNAAnimation from "../components/DNAAnimation";
 
 function SequencePage() {
-    const [sequences, setSequences] = useState([])
     const [formData, setFormData] = useState<SequenceRecord>({"seq":"", "name":"", "description":"", dbxrefs:null, features: null, annotations: null, letter_annotations: null} as SequenceRecord)
     const [save, saveIcon] = useSaveMutation(createSequence, ()=>{}, 'sequences')
-    const [deleteItem] = useSaveMutation(deleteSequence, ()=>{}, 'sequences')
-
-    const sequencesQuery = useQuery({
-        queryKey: ["sequences"],
-        queryFn: getSequences,
-    })
 
     const handleFormChange = (e) => {
         e.preventDefault();
@@ -28,74 +20,55 @@ function SequencePage() {
         save(formData)
     }
 
-    const columns = [{name: 'id'},{name: 'description'}, {name:'seq'}, {name: "action", button: true, cell: (row) => 
-        (
-            <div>
-            <button
-              onClick={() => deleteItem(row.id)}
-            >  
-              <MdDeleteForever className="text-red-500 w-5 h-5" />
-            </button>
-            </div>
-    
-          )
-    }]
-
-    let rows = []
-
-    if(sequencesQuery.status == 'loading') console.log('loading')
-    if(sequencesQuery.status == 'error') console.log(sequencesQuery.error)
-    else if(sequencesQuery.status == 'success'){
-        rows = sequencesQuery.data
-    }
-
     return (
-        <div>
-            <div>
-                <h2>Sequences</h2>
-                <Table cols={columns} rows={rows} hiddenCols={[]} sortable={[]} onRowClick={function (): {} {
-                    throw new Error("Function not implemented.")
-                } } rowConditionals={undefined} title={""} fixedHeader={false} />
-                {/* {sequences.map((note) => (
-                    <Note note={note} onDelete={deleteNote} key={note.id} />
-                ))} */}
+        <div className="flex flex-col items-center bg-slate-950 h-full">
+            <div className="fixed z-[0] h-full w-1/2 right-0">
+                <DNAAnimation />
             </div>
-            <h2>Create a Note</h2>
-            <form onSubmit={handleFormSubmit}>
-                <label htmlFor="name">Title:</label>
-                <br />
-                <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    required
-                    onChange={handleFormChange}
-                    value={formData.name}
-                />
+            <form onSubmit={handleFormSubmit} className="mt-2 z-[2] flex flex-col w-1/2 h-fit rounded-xl p-4 bg-gray-200 items-center bg-slate-800">
+                <h2 className="text-xl text-white border-b w-full mb-2 text-center">Add a Sequence</h2>
+                
+                <div className="flex justify-between w-full my-1">
+                    <label htmlFor="name" className="text-white">Name:</label>
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        required
+                        onChange={handleFormChange}
+                        value={formData.name}
+                        className="w-3/4"
+                    />
+                </div>
 
-                <label htmlFor="description">Title:</label>
-                <br />
-                <input
-                    type="text"
-                    id="description"
-                    name="description"
-                    required
-                    onChange={handleFormChange}
-                    value={formData.description}
-                />
+                <div className="flex justify-between w-full my-1">
+                    <label htmlFor="description" className="text-white">Description:</label>
+                    <input
+                        type="text"
+                        id="description"
+                        name="description"
+                        required
+                        onChange={handleFormChange}
+                        value={formData.description}
+                        className="w-3/4"
+                    />
+                </div>
 
-                <label htmlFor="seq">Sequence:</label>
-                <br />
-                <textarea
-                    id="seq"
-                    name="seq"
-                    required
-                    value={formData.seq}
-                    onChange={handleFormChange}
-                ></textarea>
-                <br />
-                <input type="submit" value="Submit"></input>
+                <div className="flex justify-between w-full my-1">
+                    <label htmlFor="seq" className="text-white">Sequence:</label>
+                    <textarea
+                        id="seq"
+                        name="seq"
+                        required
+                        value={formData.seq}
+                        onChange={handleFormChange}
+                        className="w-3/4"
+                    ></textarea>
+                </div>
+                <input className={"form-button bg-purple-300 rounded w-3/4 m-1"} type="submit" value="Submit"></input>
             </form>
+
+            <SequenceTable className={"mt-24"}/>
         </div>
     )
 }

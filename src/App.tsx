@@ -19,6 +19,7 @@ import { CurrentUserContext } from "./context/CurrentUserContext"
 import { ACCESS_TOKEN } from "./lib/constants"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { FaUserCircle } from "react-icons/fa";
+import ProfilePage from "./pages/ProfilePage"
 
 function Logout() {
   localStorage.clear()
@@ -63,7 +64,7 @@ function App() {
       <CurrentUserContext.Provider value={{currentUser, setCurrentUser}}>
         <SequenceRecordsContext.Provider value={{savedRecords, setSavedRecords}}>
           <BrowserRouter>
-            <nav className="fixed top-0 z-[2] w-full bg-slate-950 border-b text-white flex">
+            <nav className="z-[2] w-full bg-slate-950 border-b text-white flex">
               <div className="flex w-[60%] items-center">
                 <NavLink to="/" className="w-full text-center hover:!bg-slate-500 p-3 hover:brightness-125">Home</NavLink>
                 <NavLink to="/entrez" className="w-full text-center hover:!bg-slate-500 p-3">Entrez</NavLink>
@@ -88,6 +89,7 @@ function App() {
               <Route path="/logout" element={<Logout />} />
               <Route path="/register" element={<Register />} />
               <Route path="/sequences" element={<ProtectedRoute><SequencePage /></ProtectedRoute>} />
+              <Route path="/profile" element={<ProfilePage />} />
               <Route 
                 path="entrez"  
                 element={

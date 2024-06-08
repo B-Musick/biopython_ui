@@ -57,7 +57,7 @@ function DNAAnimation() {
   }
   return (
     <>
-      <Canvas className='back'>
+      <Canvas className='back z-[0]'>
           {/* Look up directional light,  */}
           {/* <directionalLight position={[0,0,4]}/> */}
           {/* <ambientLight /> */}

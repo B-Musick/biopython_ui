@@ -8,10 +8,12 @@ type TableProps = {
     onRowClick: ()=>{},
     rowConditionals: any,
     title: string,
-    fixedHeader: boolean
+    fixedHeader: boolean,
+    classes:string,
+    theme: string
 }
 
-const Table: React.FC<TableProps> = ({ cols, rows, hiddenCols, sortable, onRowClick, rowConditionals, fixedHeader, classes, title}) => {
+const Table: React.FC<TableProps> = ({ cols, rows, theme, hiddenCols, sortable, onRowClick, rowConditionals, fixedHeader, classes, title}) => {
     let columns = cols.map((col)=>{
         return {
             ...col,
@@ -26,6 +28,7 @@ const Table: React.FC<TableProps> = ({ cols, rows, hiddenCols, sortable, onRowCl
 
     return (
         <DataTable 
+            theme={theme}
             className={`${classes}`}
             title={title}
             columns={columns} 

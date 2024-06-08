@@ -14,10 +14,9 @@ function AnalyzePage(){
     const [modal, setModal] = useState();
 
     let dropdownSelections = savedRecords.map((rec)=>{return {value: rec, label: rec.id}})
-    console.log(selectedRecord)
+
     const sectionItems = [
         {title: 'Nucleotide Count', url: '/analyze/nucleotide-count', icon: null} as NavLinkInfo,
-    
     ]
 
     const handleResultClick = () => {
@@ -34,7 +33,7 @@ function AnalyzePage(){
     }
 
     return (
-        <div className="flex h-full">
+        <div className="flex h-full bg-slate-950">
             <SectionNavigation sections={sectionItems} />
             <div className="w-full">
                 <div className="flex flex-row h-fit w-full">
@@ -46,7 +45,6 @@ function AnalyzePage(){
                     />
 
                     {<button disabled={!Object.keys(selectedRecord).length > 0} onClick={handleResultClick}>view selected</button>}
-
                 </div>
                 <Outlet context={[selectedRecord]} />
             </div>
