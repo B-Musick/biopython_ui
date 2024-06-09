@@ -35,7 +35,7 @@ function SequenceTable({className}){
 
     return (
         <div className={`flex flex-col items-center w-full z-[4] ${className}`}>
-            <h2 className="text-xl text-white my-2 bg-gray-400 w-5/6 rounded-xl text-center">Sequences</h2>
+            <h2 className="text-white font-bold text-2xl p-2 text-center">Sequences</h2>
             <div className="w-5/6 bg-slate-700 rounded-xl">
                 <Table classes="" theme="dark" cols={columns} rows={rows} hiddenCols={[]} sortable={[]} onRowClick={function (): {} {
                     throw new Error("Function not implemented.")
