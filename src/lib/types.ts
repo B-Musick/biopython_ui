@@ -6,7 +6,7 @@ export type SequenceFeature = {
 }
 
 export type SequenceRecord = {
-    id: string,
+    biopython_id: string,
     name: string,
     description: string,
     dbxrefs: Array<any>,

@@ -10,3 +10,7 @@ https://www.npmjs.com/package/react-icons
 - Contains
 
   - Features: http://biopython.org/DIST/docs/tutorial/Tutorial.html#sec40 (List of SeqFeature)
+
+# Working with user data
+https://stackoverflow.com/questions/56660153/how-to-listen-to-localstorage-value-changes-in-react
+- Had to add storage event to watch for when user logged in and determine status based on this

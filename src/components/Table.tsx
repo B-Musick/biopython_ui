@@ -8,23 +8,27 @@ type TableProps = {
     onRowClick: ()=>{},
     rowConditionals: any,
     title: string,
-    fixedHeader: boolean
+    fixedHeader: boolean,
+    classes:string,
+    theme: string
 }
 
-const Table: React.FC<TableProps> = ({ cols, rows, hiddenCols, sortable, onRowClick, rowConditionals, fixedHeader, classes, title}) => {
+const Table: React.FC<TableProps> = ({ cols, rows, theme, hiddenCols, sortable, onRowClick, rowConditionals, fixedHeader, classes, title}) => {
     let columns = cols.map((col)=>{
         return {
+            ...col,
             name: col.name.toString(),
             selector: row => row[col.name],
             omit: hiddenCols.includes(col.name),
             sortable: sortable.includes(col.name),
             style: col.style,
-            wrap:true
+            wrap:true,
         }
     })
 
     return (
         <DataTable 
+            theme={theme}
             className={`${classes}`}
             title={title}
             columns={columns} 

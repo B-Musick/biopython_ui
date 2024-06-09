@@ -1,8 +1,8 @@
-import axios from "axios";
+import api from '../api/interceptor'
 
 export async function fileUpload(formData) {
-    return await axios.post(
-        `http://localhost:8000/file/upload`, 
+    return await api.post(
+        `/file/upload`, 
         formData,
         {
             headers: {

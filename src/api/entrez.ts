@@ -1,13 +1,13 @@
-import axios from "axios";
+import api from '../api/interceptor'
 
 export function getAvailableDatabases() {
-    return axios.get('http://localhost:8000/entrez/dbs_list')
+    return api.get('/entrez/dbs_list')
         .then(res => res.data);
 }
 
 export async function searchEntrez(queryParams) {
-    return await axios.get(
-        `http://localhost:8000/entrez/search`, 
+    return await api.get(
+        `/entrez/search`, 
         {
             params: queryParams
         }
