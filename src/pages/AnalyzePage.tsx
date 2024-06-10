@@ -36,7 +36,7 @@ function AnalyzePage(){
     }
 
     return (
-        <div className="flex h-full">
+        <div className="flex h-full bg-slate-950">
             <SectionNavigation sections={sectionItems} />
             <div className="w-full">
                 <div className="flex flex-row h-fit w-full">
@@ -48,7 +48,6 @@ function AnalyzePage(){
                     />
 
                     {<button disabled={!Object.keys(selectedRecord).length > 0} onClick={handleResultClick}>view selected</button>}
-
                 </div>
                 <Outlet context={[selectedRecord]} />
             </div>

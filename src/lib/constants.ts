@@ -42,4 +42,6 @@ export const inverseCodonTable = {
     "D": {short: "Asp", full: "Aspartic Acid", description: "", color: "bg-rose-900", polarity: ""},
     "E": {short: "Glu", full: "Glutamic acid", description: "", color: "bg-indigo-700", polarity: ""},
     "G": {short: "Gly", full: "Glycine", description: "", color: "bg-sky-600", polarity: ""},
-}
+}// Need to access tokens in local browser
+export const ACCESS_TOKEN = "access"
+export const REFRESH_TOKEN = "refresh"
