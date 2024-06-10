@@ -87,7 +87,7 @@ function App() {
                   <NavLink to="/login" className="text-center hover:!bg-slate-500 p-3">Login</NavLink>
               }
               </div>
-            <NavLink to="/multiple" className="w-full text-center hover:!bg-green-400 p-1">Multiple</NavLink>
+            {/* <NavLink to="/multiple" className="w-full text-center hover:!bg-green-400 p-1">Multiple</NavLink> */}
             </nav>
             <Routes>
               <Route path="/" element={<HomePage />} />
