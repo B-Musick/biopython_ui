@@ -14,3 +14,10 @@ https://www.npmjs.com/package/react-icons
 # Working with user data
 https://stackoverflow.com/questions/56660153/how-to-listen-to-localstorage-value-changes-in-react
 - Had to add storage event to watch for when user logged in and determine status based on this
+
+# React three fiber
+https://github.com/pmndrs/drei?tab=readme-ov-file
+
+## Horizontal scroll
+
+https://codesandbox.io/p/sandbox/horizontal-scroll-with-react-three-fiber-c0okfu?file=%2Fsrc%2FScene.js
