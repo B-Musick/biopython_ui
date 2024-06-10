@@ -22,7 +22,7 @@ const Table: React.FC<TableProps> = ({ cols, rows, theme, hiddenCols, sortable, 
             omit: hiddenCols.includes(col.name),
             sortable: sortable.includes(col.name),
             style: col.style,
-            wrap:true
+            wrap:true,
         }
     })
 
