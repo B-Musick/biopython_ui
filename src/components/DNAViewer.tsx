@@ -45,7 +45,7 @@ function DNAAnimation() {
                     <Suspense fallback={null}>
                         <DragControls axisLock='y'>
                             {dnaElements}
-                            <Locus startLoci={20} endLoci={40} height={1}/>
+                            <Locus startLoci={20} endLoci={40} height={1} description={"this is a description"}/>
                             <Locus startLoci={26} endLoci={49} height={1.1}/>
                             {/* <Nucleotide position={[0,0,0]} size={[0.05, 0.8, 0.05]} color={"#3A7CA5"}/>
                             <Nucleotide position={[0.1,0,0]} size={[0.05, 0.8, 0.05]} color={"#3A7CA5"}/>

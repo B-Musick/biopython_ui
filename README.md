@@ -21,3 +21,6 @@ https://github.com/pmndrs/drei?tab=readme-ov-file
 ## Horizontal scroll
 
 https://codesandbox.io/p/sandbox/horizontal-scroll-with-react-three-fiber-c0okfu?file=%2Fsrc%2FScene.js
+
+# Tooltip
+https://codesandbox.io/p/sandbox/react-three-fiber-tooltip-5wbsn?file=%2Fsrc%2FApp.tsx%3A3%2C1-3%2C646
