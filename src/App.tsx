@@ -20,6 +20,7 @@ import { ACCESS_TOKEN } from "./lib/constants"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { FaUserCircle } from "react-icons/fa";
 import ProfilePage from "./pages/ProfilePage"
+import DNAViewer from "./components/DNAViewer"
 
 function Logout() {
   localStorage.clear()
@@ -90,6 +91,7 @@ function App() {
               <Route path="/register" element={<Register />} />
               <Route path="/sequences" element={<ProtectedRoute><SequencePage /></ProtectedRoute>} />
               <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/viewer" element={<DNAViewer />} />
               <Route 
                 path="entrez"  
                 element={
