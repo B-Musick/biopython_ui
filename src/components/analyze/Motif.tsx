@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
-import Select from "react-select";
+import DNAViewer from "../DNAViewer";
+import Locus from "../animation/Locus";
 
 function Motif(){
     const [selectedRecord] = useOutletContext();
@@ -36,24 +37,32 @@ function Motif(){
         setFormData({...formData, ['sequence']: selectedRecord.seq})
     }, [selectedRecord])
 
+    let motifLocations = locations.map((loc)=>{
+        console.log(formData)
+        return <Locus startLoci={loc-1} endLoci={loc-1+formData.motif.length} height={1} description={"this is a description"}/>
+                            
+    })
+
     return (
         // Add a plus button where they can perform multiple motif searches (duplicates the form)
-        <>
-            <form onSubmit={handleSubmit}>
+        <div className="h-full w-full flex flex-col items-center">
+            <form onSubmit={handleSubmit} className="z-[2] flex flex-col w-1/4 h-fit rounded-xl p-4 bg-gray-200 items-center  bg-slate-800">
                 {/* Place a dropdown of existing motifs */}
-                <label htmlFor="motif">Motif: </label>
-                <input type="text" id="motif" name="motif" value={formData.motif} onChange={handleChange} />
+                <input type="text" id="motif" name="motif" placeholder="Motif" value={formData.motif} onChange={handleChange} className="p-1"/>
 
-                <label htmlFor="sequence">Sequence: </label>
-                <textarea type="text" id="sequence" name="sequence" className="overflow-scroll" value={formData.sequence} onChange={handleChange} />
+                <textarea type="text" id="sequence" name="sequence" placeholder="Sequence" className=" mt-2 overflow-scroll p-1" value={formData.sequence} onChange={handleChange} />
                 
                 {/* or allow them to input their own */}
-                <button>Find</button>
+                <button className="form-button bg-purple-300 rounded w-3/4 m-1 mt-2">Find</button>
             </form>
+            {formData.sequence && 
+                <DNAViewer strand={formData.sequence}>     
+                    {motifLocations}
+                </DNAViewer>}
             <section>
                 locations: {locations.join(', ')}
             </section>
-        </>
+        </div>
     )
 }
 

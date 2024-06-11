@@ -6,8 +6,9 @@ function Locus({startLoci, endLoci, height, description}){
     const nucleotideSpace = 0.1;
     const tooltipRef = useRef();
     const [enableTooltip, setEnableTooltip] = useState(false)
-    const width = ((startLoci-1) * nucleotideSpace) + ((endLoci-startLoci)*nucleotideSpace);
-
+    const width = ((endLoci-startLoci)*nucleotideSpace);
+    console.log('start: ', startLoci)
+    console.log('end: ', endLoci)
     const handleHover = () => {
         setEnableTooltip(true)
     }
@@ -18,7 +19,8 @@ function Locus({startLoci, endLoci, height, description}){
         }
       }, [enableTooltip]);
     
-    const startPosition = (((startLoci-1) * nucleotideSpace) + width/2);
+    const startPosition = (((startLoci-0.5) * nucleotideSpace) + width/2);
+    console.log(width)
     return (
         <>
             <mesh position={[startPosition, 0 ,0.1]} onPointerOver={handleHover} onPointerLeave={()=>setEnableTooltip(false)}>
