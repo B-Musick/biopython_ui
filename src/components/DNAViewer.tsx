@@ -14,9 +14,10 @@ function DNAAnimation({strand, children}) {
       ]
     const strandsPerPage = 110;
 
-    const dnaElements = strand.split('').map((nuc, idx)=>{                
+    const dnaElements = strand.length > 0 && strand.split('').map((nuc, idx)=>{                
         return <Nucleotide type={nuc} position={[idx*0.1, 0, 0]} rotation={undefined}/>
     })
+
     return (
         <>
           <Canvas className='back z-[0] bg-slate-950'>
@@ -26,7 +27,7 @@ function DNAAnimation({strand, children}) {
               <ambientLight />
 
             {/* <DragControls axisLock='y'> */}
-            <ScrollControls horizontal pages={strand.length/strandsPerPage} damping={0.1}>
+            <ScrollControls horizontal pages={Math.ceil(strand.length/strandsPerPage)} damping={0.1}>
                 <Scroll>
                     <Suspense fallback={null}>
                         <DragControls axisLock='y'>

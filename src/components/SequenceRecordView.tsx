@@ -8,6 +8,7 @@ interface SequenceRecordViewProps {
 }
 const SequenceRecordView: React.FC<SequenceRecordViewProps> = ({record, classes}) => {
     let stringAttributes = ['id', 'name', 'description'];
+    console.log(record)
     let recordAttributes = stringAttributes.map((attr, index)=>{
         return (
             <div className="flex justify-between">

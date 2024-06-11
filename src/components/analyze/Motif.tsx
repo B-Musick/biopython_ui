@@ -2,25 +2,26 @@ import { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import DNAViewer from "../DNAViewer";
 import Locus from "../animation/Locus";
+import { useForm } from "react-hook-form";
+import { VscErrorSmall } from "react-icons/vsc";
+import ErrorMessage from "../forms/ErrorMessage";
 
 function Motif(){
     const [selectedRecord] = useOutletContext();
-    const [formData, setFormData] = useState({ motif: "", sequence: "" })
     const [locations, setLocations] = useState([])
+    const { watch, register, handleSubmit, formState: {errors}, getValues, setValue } = useForm();
+    const [sequenceString, setSequenceString] = useState('');
 
-    const handleChange = (e) => {
-        setFormData({...formData, [e.target.name]:e.target.value})
+    const onSubmit = (data) => {
+        const { motif, sequence } = data;
+        findMotifLocations(sequence, motif)
+        setSequenceString(sequence)
     }
+
+    useEffect(()=>{
+        setValue('sequence', selectedRecord.seq)
+    }, [selectedRecord])
     
-    const handleSubmit = async (e) => {
-        e.preventDefault()
-
-        const { motif } = formData;
-
-        console.log("form data: ",formData)
-        findMotifLocations(formData.sequence, motif)
-    }
-
     const findMotifLocations = (sequence: string, motif: string) =>{
         let locationsFound = [];
 
@@ -29,39 +30,50 @@ function Motif(){
                 locationsFound.push(i+1)
             }
         }
-        console.log(locationsFound)
         setLocations(locationsFound)
     }
 
-    useEffect(()=>{
-        setFormData({...formData, ['sequence']: selectedRecord.seq})
-    }, [selectedRecord])
-
     let motifLocations = locations.map((loc)=>{
-        console.log(formData)
-        return <Locus startLoci={loc-1} endLoci={loc-1+formData.motif.length} height={1} description={"this is a description"}/>
-                            
+        return <Locus startLoci={loc-1} endLoci={loc-1+getValues('motif').length} height={1} description={"this is a description"}/>          
     })
+
+    let dnaView = <DNAViewer strand={sequenceString}>     
+        {motifLocations}
+    </DNAViewer>
 
     return (
         // Add a plus button where they can perform multiple motif searches (duplicates the form)
         <div className="h-full w-full flex flex-col items-center">
-            <form onSubmit={handleSubmit} className="z-[2] flex flex-col w-1/4 h-fit rounded-xl p-4 bg-gray-200 items-center  bg-slate-800">
+            <form onSubmit={handleSubmit(onSubmit)} className="z-[2] flex flex-col w-1/4 h-fit rounded-xl p-4 bg-gray-200 items-center  bg-slate-800">
                 {/* Place a dropdown of existing motifs */}
-                <input type="text" id="motif" name="motif" placeholder="Motif" value={formData.motif} onChange={handleChange} className="p-1"/>
+                <div className="flex flex-col w-full">
+                    <input 
+                        {...register('motif', { 
+                            required:true, pattern: /^[ACTG]+$/, 
+                            maxLength: watch("sequence") ? watch("sequence").length : 1 })} 
+                            aria-invalid={errors.motif ? "true" : "false"
+                        }
+                        placeholder="Motif" 
+                        className={`rounded-lg pl-2 ${errors.motif ? 'border-2 border-rose-500': ''}`}
+                    />
+                    {errors.motif?.type === 'required' && <p role="alert" className="text-red-400 text-xs flex items-center">
+                        <VscErrorSmall className="!text-xl"/>
+                        Motif is required
+                    </p>}
+                    {errors.motif?.type === 'pattern' && <ErrorMessage message={"Should only include nucleotide"} />}
+                    {errors.motif?.type === 'maxLength' && <ErrorMessage message={"Motif should be shorter than sequence"} />}
+                </div>
 
-                <textarea type="text" id="sequence" name="sequence" placeholder="Sequence" className=" mt-2 overflow-scroll p-1" value={formData.sequence} onChange={handleChange} />
-                
-                {/* or allow them to input their own */}
-                <button className="form-button bg-purple-300 rounded w-3/4 m-1 mt-2">Find</button>
+                <div className="flex flex-col w-full">
+                    <textarea {...register('sequence', { required:true, pattern: /^[ACTG]+$/  })} 
+                    aria-invalid={errors.sequence ? "true" : "false"} placeholder="Sequence" className="rounded-lg pl-2  mt-2 overflow-scroll p-1 w-auto" />
+                    {errors.sequence?.type === 'required' && <ErrorMessage message="Sequence is required" />}
+                    {errors.sequence?.type === 'pattern' && <ErrorMessage message="Should only include nucleotide" />}
+                </div>
+
+                <input type="submit" className="form-button bg-purple-300 rounded w-3/4 m-1 mt-2"/>
             </form>
-            {formData.sequence && 
-                <DNAViewer strand={formData.sequence}>     
-                    {motifLocations}
-                </DNAViewer>}
-            <section>
-                locations: {locations.join(', ')}
-            </section>
+            {dnaView}
         </div>
     )
 }
