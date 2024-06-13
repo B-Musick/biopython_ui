@@ -23,18 +23,19 @@ export const FileUpload = () => {
     }
 
     return (
-        <div className="w-full h-full flex flex-col">
-            <form encType="multipart/form-data" onSubmit={handleSubmit}>
+        <div className="w-full h-full flex flex-col bg-slate-950">
+            <form encType="multipart/form-data" className="flex flex-col items-center bg-purple-300 p-1" onSubmit={handleSubmit}>
+                <div>
                 <Select 
                     placeholder="File Type" 
                     options={fileTypeSelections} 
                     onChange={(val)=>setFormInput({...formInput, fileType: val.value})} 
                     values={[]} 
                 />
+                <input type="file" className="text-white bg-purple-300 rounded-xl p-1" onChange={(e)=>setFormInput({...formInput, file: e.target.files[0]})} name="genetic_file"/>
 
-                <input type="file" onChange={(e)=>setFormInput({...formInput, file: e.target.files[0]})} name="genetic_file"/>
-
-                <button>Parse</button>
+                </div>
+                <button className="bg-blue-600 rounded-lg px-12">Parse</button>
             </form>
             {results && <SequenceRecordList records={results.records}/>}
         </div>

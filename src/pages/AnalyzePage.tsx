@@ -21,7 +21,7 @@ function AnalyzePage(){
         {title: 'Translate', url: '/analyze/translate', icon: null} as NavLinkInfo,
         {title: 'Motif', url: '/analyze/motif', icon: null} as NavLinkInfo,
     ]
-    console.log(dropdownSelections)
+
     const handleResultClick = () => {
         let modal = <Modal 
             classes="bg-white px-2 flex flex-wrap h-3/4" 
@@ -49,6 +49,7 @@ function AnalyzePage(){
 
                     {<button disabled={!Object.keys(selectedRecord).length > 0} onClick={handleResultClick}>view selected</button>}
                 </div>
+                
                 <Outlet context={[selectedRecord]} />
             </div>
             {showModal && modal}

@@ -41,8 +41,8 @@ export const EntrezSearch = () => {
     }
  
     return (
-        <div className="w-full h-full">
-            <form onSubmit={handleSearch} className="h-1/4 bg-blue-300">
+        <div className="w-full h-full bg-slate-950">
+            <form onSubmit={handleSearch} className="h-1/4 bg-purple-300">
                 <div className={`h-full flex flex-col lg:flex-row w-full justify-evenly items-center p-4`}>
                     <div className="w-full flex justify-center h-[40px]">
                         <input className="border w-[92%] h-full focus:-outline-offset-2" name="searchTerm" value={formInput.searchTerm} onChange={handleFormChange} type="text"/>

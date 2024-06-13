@@ -28,8 +28,8 @@ export const SequenceRecordList: React.FC<SequenceRecordListProps> = ({records})
     }
     
     let results = records.map((record)=>{
-        let actionButtons = <div className="z-[1] hover:brightness-125 bg-blue-200">
-            <button onClick={(e)=>{e.stopPropagation();setSavedRecords([...records, record])}}>use</button>
+        let actionButtons = <div className="z-[1] hover:brightness-125">
+            <button className="bg-purple-400 w-full rounded-lg" onClick={(e)=>{e.stopPropagation();setSavedRecords([...records, record])}}>Use</button>
         </div>
 
         return (
