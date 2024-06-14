@@ -3,7 +3,6 @@ import { useOutletContext } from "react-router-dom";
 import DNAViewer from "../DNAViewer";
 import Locus from "../animation/Locus";
 import { useForm } from "react-hook-form";
-import { VscErrorSmall } from "react-icons/vsc";
 import ErrorMessage from "../forms/ErrorMessage";
 
 function Motif(){
@@ -56,10 +55,7 @@ function Motif(){
                         placeholder="Motif" 
                         className={`rounded-lg pl-2 ${errors.motif ? 'border-2 border-rose-500': ''}`}
                     />
-                    {errors.motif?.type === 'required' && <p role="alert" className="text-red-400 text-xs flex items-center">
-                        <VscErrorSmall className="!text-xl"/>
-                        Motif is required
-                    </p>}
+                    {errors.motif?.type === 'required' && <ErrorMessage message={"Motif is required"} />}
                     {errors.motif?.type === 'pattern' && <ErrorMessage message={"Should only include nucleotide"} />}
                     {errors.motif?.type === 'maxLength' && <ErrorMessage message={"Motif should be shorter than sequence"} />}
                 </div>
