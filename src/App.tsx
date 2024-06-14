@@ -25,6 +25,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { FaUserCircle } from "react-icons/fa";
 import ProfilePage from "./pages/ProfilePage"
 import DNAViewer from "./components/DNAViewer"
+import ProteinPage from "./pages/ProteinPage"
 
 function Logout() {
   localStorage.clear()
@@ -76,6 +77,7 @@ function App() {
                 <NavLink to="/file" className="w-full text-center hover:!bg-slate-500 p-3">File</NavLink>
                 <NavLink to="/analyze" className="w-full text-center hover:!bg-slate-500 p-3">Analyze</NavLink>
                 <NavLink to="/sequences" className="w-full text-center hover:!bg-slate-500 p-3">Sequences</NavLink>
+                <NavLink to="/protein" className="w-full text-center hover:!bg-slate-500 p-3">Protein</NavLink>
               </div>
               <div className="w-[40%] flex items-center justify-end">
               {
@@ -97,6 +99,7 @@ function App() {
               <Route path="/sequences" element={<ProtectedRoute><SequencePage /></ProtectedRoute>} />
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/viewer" element={<DNAViewer />} />
+              <Route path="/protein" element={<ProteinPage />} />
               <Route 
                 path="entrez"  
                 element={

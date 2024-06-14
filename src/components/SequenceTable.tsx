@@ -2,10 +2,10 @@ import { useQuery } from "@tanstack/react-query"
 import Table from "./Table"
 import { deleteSequence, getSequences } from "../api/sequences"
 import { MdDeleteForever } from "react-icons/md"
-import useSaveMutation from "../hooks/useSaveMutation"
+import useDeleteMutation from "../hooks/useDeleteMutation"
 
 function SequenceTable({className}){
-    const [deleteItem] = useSaveMutation(deleteSequence, ()=>{}, 'sequences')
+    const [deleteItem] = useDeleteMutation(deleteSequence, ()=>{}, 'sequences')
 
     const sequencesQuery = useQuery({
         queryKey: ["sequences"],
