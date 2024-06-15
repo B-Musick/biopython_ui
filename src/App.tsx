@@ -26,6 +26,7 @@ import { FaUserCircle } from "react-icons/fa";
 import ProfilePage from "./pages/ProfilePage"
 import DNAViewer from "./components/DNAViewer"
 import ProteinPage from "./pages/ProteinPage"
+import UniprotSearch from "./components/protein/UniprotSearch"
 
 function Logout() {
   localStorage.clear()
@@ -78,6 +79,7 @@ function App() {
                 <NavLink to="/analyze" className="w-full text-center hover:!bg-slate-500 p-3">Analyze</NavLink>
                 <NavLink to="/sequences" className="w-full text-center hover:!bg-slate-500 p-3">Sequences</NavLink>
                 <NavLink to="/protein" className="w-full text-center hover:!bg-slate-500 p-3">Protein</NavLink>
+                <NavLink to="/protein/uniprot" className="w-full text-center hover:!bg-slate-500 p-3">Uniprot</NavLink>
               </div>
               <div className="w-[40%] flex items-center justify-end">
               {
@@ -98,8 +100,10 @@ function App() {
               <Route path="/register" element={<Register />} />
               <Route path="/sequences" element={<ProtectedRoute><SequencePage /></ProtectedRoute>} />
               <Route path="/profile" element={<ProfilePage />} />
-              <Route path="/viewer" element={<DNAViewer />} />
+              {/* <Route path="/viewer" element={<DNAViewer />} /> */}
               <Route path="/protein" element={<ProteinPage />} />
+              <Route path="/protein/uniprot" element={<UniprotSearch />} />
+
               <Route 
                 path="entrez"  
                 element={
