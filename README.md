@@ -24,3 +24,6 @@ https://codesandbox.io/p/sandbox/horizontal-scroll-with-react-three-fiber-c0okfu
 
 # Tooltip
 https://codesandbox.io/p/sandbox/react-three-fiber-tooltip-5wbsn?file=%2Fsrc%2FApp.tsx%3A3%2C1-3%2C646
+
+# Uniprot
+- 

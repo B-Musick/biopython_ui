@@ -6,6 +6,7 @@ import { Outlet } from "react-router-dom"
 import SectionNavigation from "../components/SectionNavigation"
 import Modal from "../components/Modal"
 import SequenceRecordView from "../components/SequenceRecordView"
+import { NavLinkInfo } from "../lib/propTypes"
 
 function AnalyzePage(){
     const { savedRecords, setSavedRecords } = useContext(SequenceRecordsContext)
@@ -13,10 +14,12 @@ function AnalyzePage(){
     const [showModal, setShowModal] = useState(false);
     const [modal, setModal] = useState();
 
-    let dropdownSelections = savedRecords.map((rec)=>{return {value: rec, label: rec.id}})
-
+    let dropdownSelections = savedRecords.map((rec)=>{return {value: rec, label: rec.name}})
     const sectionItems = [
         {title: 'Nucleotide Count', url: '/analyze/nucleotide-count', icon: null} as NavLinkInfo,
+        {title: 'Sequence Functions', url: '/analyze/sequence-functions', icon: null} as NavLinkInfo,
+        {title: 'Translate', url: '/analyze/translate', icon: null} as NavLinkInfo,
+        {title: 'Motif', url: '/analyze/motif', icon: null} as NavLinkInfo,
     ]
 
     const handleResultClick = () => {
@@ -36,7 +39,7 @@ function AnalyzePage(){
         <div className="flex h-full bg-slate-950">
             <SectionNavigation sections={sectionItems} />
             <div className="w-full">
-                <div className="flex flex-row h-fit w-full">
+                <div className="flex flex-row h-fit w-full mt-3 ml-3">
                     <Select 
                         placeholder="Select Sequence" 
                         options={dropdownSelections} 
@@ -46,11 +49,11 @@ function AnalyzePage(){
 
                     {<button disabled={!Object.keys(selectedRecord).length > 0} onClick={handleResultClick}>view selected</button>}
                 </div>
+                
                 <Outlet context={[selectedRecord]} />
             </div>
             {showModal && modal}
         </div>
-        
     )
 }
 

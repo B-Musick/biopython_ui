@@ -9,6 +9,10 @@ import { useEffect, useState } from "react"
 import { SequenceRecord } from "./lib/types"
 import AnalyzePage from "./pages/AnalyzePage"
 import NucleotideCount from "./components/analyze/NucleotideCount"
+import SequenceFunctions from "./components/analyze/SequenceFunctions"
+import Translate from "./components/analyze/Translate"
+import Motif from "./components/analyze/Motif"
+import MultipleSequenceAnalysisPage from "./pages/MultipleSequenceAnalysisPage"
 import Register from "./pages/Register"
 import Login from "./pages/Login"
 import ProtectedRoute from "./components/ProtectedRoute"
@@ -21,6 +25,8 @@ import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { FaUserCircle } from "react-icons/fa";
 import ProfilePage from "./pages/ProfilePage"
 import DNAViewer from "./components/DNAViewer"
+import ProteinPage from "./pages/ProteinPage"
+import UniprotSearch from "./components/protein/UniprotSearch"
 
 function Logout() {
   localStorage.clear()
@@ -72,6 +78,8 @@ function App() {
                 <NavLink to="/file" className="w-full text-center hover:!bg-slate-500 p-3">File</NavLink>
                 <NavLink to="/analyze" className="w-full text-center hover:!bg-slate-500 p-3">Analyze</NavLink>
                 <NavLink to="/sequences" className="w-full text-center hover:!bg-slate-500 p-3">Sequences</NavLink>
+                <NavLink to="/protein" className="w-full text-center hover:!bg-slate-500 p-3">Protein</NavLink>
+                <NavLink to="/protein/uniprot" className="w-full text-center hover:!bg-slate-500 p-3">Uniprot</NavLink>
               </div>
               <div className="w-[40%] flex items-center justify-end">
               {
@@ -83,6 +91,7 @@ function App() {
                   <NavLink to="/login" className="text-center hover:!bg-slate-500 p-3">Login</NavLink>
               }
               </div>
+            {/* <NavLink to="/multiple" className="w-full text-center hover:!bg-green-400 p-1">Multiple</NavLink> */}
             </nav>
             <Routes>
               <Route path="/" element={<HomePage />} />
@@ -91,7 +100,10 @@ function App() {
               <Route path="/register" element={<Register />} />
               <Route path="/sequences" element={<ProtectedRoute><SequencePage /></ProtectedRoute>} />
               <Route path="/profile" element={<ProfilePage />} />
-              <Route path="/viewer" element={<DNAViewer />} />
+              {/* <Route path="/viewer" element={<DNAViewer />} /> */}
+              <Route path="/protein" element={<ProteinPage />} />
+              <Route path="/protein/uniprot" element={<UniprotSearch />} />
+
               <Route 
                 path="entrez"  
                 element={
@@ -109,6 +121,12 @@ function App() {
               </Route>
               <Route path="analyze"  element={<AnalyzePage />}>
                   <Route path="nucleotide-count" element={<NucleotideCount />} />
+                <Route path="sequence-functions" element={<SequenceFunctions />} />
+                <Route path="translate" element={<Translate />} />
+                <Route path="motif" element={<Motif />} />
+            </Route>
+            <Route path="multiple" element={<MultipleSequenceAnalysisPage/>}>
+                <Route path="motif" element={<Motif />} />
               </Route>
               <Route path="*" element={<NotFound />} />
             </Routes>

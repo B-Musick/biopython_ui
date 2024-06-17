@@ -26,3 +26,8 @@ export type FastaFile = {
     records: SequenceRecord[],
     fileType: string
 }
+
+export type SwissProtRecord = {
+    entry_name: string,
+    sequence: string
+}
