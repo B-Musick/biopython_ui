@@ -2,10 +2,11 @@ import api from '../api/interceptor'
 import { SwissProtRecord } from '../lib/types';
 
 export async function uniprot(queryParams) {
+    console.log(queryParams.queryKey[1])
     return await api.get(
         `/protein/uniprot`, 
         {
-            params: queryParams
+            params: queryParams.queryKey[1]
         }
     ).then(res=>res.data)
 }

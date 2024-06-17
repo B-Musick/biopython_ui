@@ -10,10 +10,12 @@ type TableProps = {
     title: string,
     fixedHeader: boolean,
     classes:string,
-    theme: string
+    theme: string,
+    progressPending: boolean,
+    progressComponent: any
 }
 
-const Table: React.FC<TableProps> = ({ cols, rows, theme, hiddenCols, sortable, onRowClick, rowConditionals, fixedHeader, classes, title}) => {
+const Table: React.FC<TableProps> = ({ progressComponent, progressPending, cols, rows, theme, hiddenCols, sortable, onRowClick, rowConditionals, fixedHeader, classes, title}) => {
     let columns = cols.map((col)=>{
         return {
             ...col,
@@ -36,6 +38,9 @@ const Table: React.FC<TableProps> = ({ cols, rows, theme, hiddenCols, sortable, 
             onRowClicked={onRowClick} 
             fixedHeader={fixedHeader}
             conditionalRowStyles={rowConditionals}
+            progressPending={progressPending}
+            progressComponent={progressComponent}
+            pagination={true}
         />
     )
 }
