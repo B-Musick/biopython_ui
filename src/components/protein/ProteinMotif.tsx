@@ -25,32 +25,20 @@ export default function ProteinMotif() {
         let possibleProteins = "ARNDCEQGHILKMFPSTWYV"
         let matchedBraces = [...motif.matchAll(allExceptBrace)]
         matchedBraces.forEach(brace=>{
-            console.log(brace)
             let letter = brace[0][1]
             let proteinList = possibleProteins.replace(letter, '')
-            // console.log(letter)
             // Negative lookahead assertion - https://stackoverflow.com/questions/29859968/how-to-match-all-alphabet-except-few
             motif = motif.replace(brace[0], `[${proteinList}]`)
         })
-        console.log(motif.trim())
-        console.log(sequence)
+
         let regex = new RegExp(motif, 'g');
         let matches = [...sequence.matchAll(regex)]
         let locations = []
 
-        // console.log(matches)
         matches.forEach(match=>{
             locations.push(match.index+1)
-            console.log(match.index)
         })
         setMatchLocations(locations)
-
-        // motif.split('').forEach((letter)=>{
-        //     if(letter == '{') { 
-        //         // squareEitherBrace = true;
-
-        //     }
-        // })
     }
 
     return (

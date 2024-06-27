@@ -80,6 +80,10 @@ function UniprotSearch(){
     
     // let rows = []
 
+    const saveAll = () => {
+        data.forEach(row=>save(row))
+    }
+
     let recordList = 
         <Table 
             title="Sequences"
@@ -105,6 +109,7 @@ function UniprotSearch(){
 
             <div className="w-[80%]">
                 {recordList}
+                <button onClick={saveAll} className="w-full bg-green-300 py-4 flex justify-center items-center">{saveIcon} <span className="pl-1">Save All</span></button>
             </div>
         </div>
     )
