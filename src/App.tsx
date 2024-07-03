@@ -27,6 +27,8 @@ import ProfilePage from "./pages/ProfilePage"
 import DNAViewer from "./components/DNAViewer"
 import ProteinPage from "./pages/ProteinPage"
 import UniprotSearch from "./components/protein/UniprotSearch"
+import AddProtein from "./components/forms/AddProtein"
+import ProteinMotif from "./components/protein/ProteinMotif"
 
 function Logout() {
   localStorage.clear()
@@ -101,8 +103,11 @@ function App() {
               <Route path="/sequences" element={<ProtectedRoute><SequencePage /></ProtectedRoute>} />
               <Route path="/profile" element={<ProfilePage />} />
               {/* <Route path="/viewer" element={<DNAViewer />} /> */}
-              <Route path="/protein" element={<ProteinPage />} />
-              <Route path="/protein/uniprot" element={<UniprotSearch />} />
+              <Route path="protein" element={<ProteinPage />} >
+                <Route path="uniprot" element={<UniprotSearch />} />
+                <Route path="add" element={<AddProtein />} />
+                <Route path="motif" element={<ProteinMotif />} />
+              </Route>
 
               <Route 
                 path="entrez"  
