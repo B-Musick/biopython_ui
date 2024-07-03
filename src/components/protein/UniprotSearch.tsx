@@ -4,6 +4,7 @@ import { createProtein, uniprot } from "../../api/protein";
 import useSaveMutation from "../../hooks/useSaveMutation";
 import { useQuery } from "@tanstack/react-query";
 import Table from "../Table";
+import { useOutletContext } from "react-router-dom";
 
 function UniprotSearch(){
     const [inputFields, setInputFields] = useState([{entry_name: ''}])
@@ -11,6 +12,8 @@ function UniprotSearch(){
     const [save, saveIcon] = useSaveMutation(createProtein, ()=>{}, 'proteins')
     const [loading, setLoading] = useState("");
     const [accessions, setAccessions] = useState({})
+
+    const [selectedRecord, setSelectedRecord, selectedRows] = useOutletContext();
 
     let fields = inputFields.map((input, index)=>{
         return <div key={index} className="flex w-full justify-between">
@@ -97,7 +100,7 @@ function UniprotSearch(){
             sortable={[]} 
             onRowClick={function (): {} {
                 throw new Error("Function not implemented.")
-            } } rowConditionals={undefined} fixedHeader={false} />
+            } } rowConditionals={undefined} fixedHeader={false} selectedRowAction={undefined}/>
 
     return (
         <div className="h-full w-full flex flex-col items-center">
@@ -105,6 +108,7 @@ function UniprotSearch(){
                 {fields}
                 <button onClick={addFields} className="flex self-start border items-center px-1 bg-gray-200 rounded mt-1"><FaRegSquarePlus />Add Accession</button>
                 <button className="form-button bg-purple-300 rounded w-3/4 m-1 mt-2">Submit</button>
+            
             </form>
 
             <div className="w-[80%]">

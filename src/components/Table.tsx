@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import DataTable from 'react-data-table-component';
 
 type TableProps = {
@@ -11,11 +12,12 @@ type TableProps = {
     fixedHeader: boolean,
     classes:string,
     theme: string,
-    progressPending: boolean,
-    progressComponent: any
+    progressPending?: boolean,
+    progressComponent?: any,
+    selectedRowAction?: any
 }
 
-const Table: React.FC<TableProps> = ({ progressComponent, progressPending, cols, rows, theme, hiddenCols, sortable, onRowClick, rowConditionals, fixedHeader, classes, title}) => {
+const Table: React.FC<TableProps> = ({ progressComponent, progressPending, cols, rows, theme, hiddenCols, sortable, onRowClick, rowConditionals, fixedHeader, classes, title, selectedRowAction}) => {
     let columns = cols.map((col)=>{
         return {
             ...col,
@@ -27,6 +29,10 @@ const Table: React.FC<TableProps> = ({ progressComponent, progressPending, cols,
             wrap:true,
         }
     })
+
+    const handleRowSelected = useCallback(state => {
+        if(selectedRowAction) selectedRowAction(state.selectedRows)
+    }, [])
 
     return (
         <DataTable 
@@ -41,6 +47,8 @@ const Table: React.FC<TableProps> = ({ progressComponent, progressPending, cols,
             progressPending={progressPending}
             progressComponent={progressComponent}
             pagination={true}
+            selectableRows
+            onSelectedRowsChange={handleRowSelected}
         />
     )
 }

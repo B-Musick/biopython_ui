@@ -10,6 +10,7 @@ import { useState } from "react";
 function ProteinPage(){
     const [deleteItem] = useDeleteMutation(deleteProtein, ()=>{}, 'proteins')
     const [selectedRecord, setSelectedRecord] = useState({})
+    const [selectedRows, setSelectedRows] = useState([])
 
     const sectionItems = [
         {title: 'Add Protein', url: '/protein/add', icon: null} as NavLinkInfo,
@@ -45,17 +46,19 @@ function ProteinPage(){
         rows = proteinsQuery.data
     }
 
+
     return (
         <div className={`flex w-full z-[4]`}>
             <SectionNavigation sections={sectionItems} />
             <div className="w-full flex flex-col items-center">
-                <Outlet context={[selectedRecord, setSelectedRecord]}/>
+                <Outlet context={[selectedRecord, setSelectedRecord, selectedRows]}/>
                 <h2 className="text-white font-bold text-2xl p-2 text-center">Proteins</h2>
                 
                 <div className="w-5/6 bg-slate-700 rounded-xl">
                     <Table classes="" theme="dark" cols={columns} rows={rows} hiddenCols={[]} sortable={[]} onRowClick={function (): {} {
                         throw new Error("Function not implemented.")
-                    } } rowConditionals={undefined} title={""} fixedHeader={false} />
+                    } } rowConditionals={undefined} title={""} fixedHeader={false}
+                    selectedRowAction={setSelectedRows} />
                 </div>
             </div>
     </div>

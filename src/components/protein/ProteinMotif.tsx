@@ -2,12 +2,14 @@ import { useOutletContext } from "react-router-dom";
 import ErrorMessage from "../forms/ErrorMessage";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
+import Table from "../Table";
 
 export default function ProteinMotif() {
     const { watch, register, handleSubmit, formState: {errors}, getValues, setValue } = useForm();
 
-    const [selectedRecord, setSelectedRecord] = useOutletContext();
+    const [selectedRecord, setSelectedRecord, selectedRows] = useOutletContext();
     const [matchLocations, setMatchLocations] = useState([])
+    const [showMatchedLocations, setShowMatchedLocations] = useState(false)
 
     const onSubmit = (data) => {
         console.log(data)
@@ -38,7 +40,14 @@ export default function ProteinMotif() {
         matches.forEach(match=>{
             locations.push(match.index+1)
         })
-        setMatchLocations(locations)
+        if(!showMatchedLocations) setMatchLocations(locations)
+        return locations
+    }
+
+    const columns = [{name: 'entry_name'},{name: 'sequence'}, {name: "action", button: true}]
+
+    const analyzeSelectedProteins = () => {
+        setShowMatchedLocations(true)
     }
 
     return (
@@ -55,7 +64,7 @@ export default function ProteinMotif() {
                 />
                 {errors.entry_name?.type === 'required' && <ErrorMessage message={"Protein sequence required"} />}
             </div>
-
+            
             <div className="flex flex-col w-full">
                 <textarea {...register('sequence', { required:true, pattern: /^[ARNDCEQGHILKMFPSTWYV]+$/  })}
                 aria-invalid={errors.sequence ? "true" : "false"} placeholder="Sequence" className="rounded-lg pl-2  mt-2 overflow-scroll p-1 w-auto" />
@@ -65,7 +74,32 @@ export default function ProteinMotif() {
 
             <input type="submit" className="form-button bg-purple-300 rounded w-3/4 m-1 mt-2"/>
         </form>
-        <div>{matchLocations.join(' ')}</div>
+        <div>{selectedRows.length > 0 && selectedRows[0].entry_name}</div>
+        <Table 
+            title="Selected Items"
+            classes="w-[800px]" 
+            theme="dark" 
+            cols={columns} 
+            rows={selectedRows} 
+            // progressPending={isLoading} 
+            // progressComponent={spinner}
+            hiddenCols={[]} 
+            sortable={[]} 
+            onRowClick={function (): {} {
+                throw new Error("Function not implemented.")
+            }} 
+            rowConditionals={undefined} 
+            fixedHeader={false} 
+            selectedRowAction={undefined}
+        />
+        <button className="w-full bg-green-300 py-2" onClick={analyzeSelectedProteins}>Analyze</button>
+
+        {!showMatchedLocations && <div>{matchLocations.join(' ')}</div>}
+        {showMatchedLocations && selectedRows.map((val)=>{
+            return <div>
+                <h1>{val.entry_name}</h1>
+                <div>{createMotifRegex(getValues().motif, val.sequence).join(' ')}</div></div>
+        })}
     </div>
     )
 }
