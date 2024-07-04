@@ -5,10 +5,12 @@ import useSaveMutation from "../../hooks/useSaveMutation";
 import { useQuery } from "@tanstack/react-query";
 import Table from "../Table";
 import { useOutletContext } from "react-router-dom";
+import FileInput from "../FileInput";
 
 function UniprotSearch(){
     const [inputFields, setInputFields] = useState([{entry_name: ''}])
     const [results, setResults] = useState([])
+    const [fileText, setFileText] = useState("")
     const [save, saveIcon] = useSaveMutation(createProtein, ()=>{}, 'proteins')
     const [loading, setLoading] = useState("");
     const [accessions, setAccessions] = useState({})
@@ -28,6 +30,14 @@ function UniprotSearch(){
             <button className="text-red-100" onClick={(event)=>removeField(event, index)}>x</button>
             </div>
     });
+
+    useEffect(()=>{
+        let uniprotNames = fileText.split(/\r?\n/);
+        let accessionNumbers = uniprotNames.map((name)=>{
+            return name.split('_')[0]
+        })
+        console.log(accessionNumbers)
+    }, [fileText])
 
     const removeField = (e, index) => {
         e.preventDefault()
@@ -100,10 +110,18 @@ function UniprotSearch(){
             sortable={[]} 
             onRowClick={function (): {} {
                 throw new Error("Function not implemented.")
-            } } rowConditionals={undefined} fixedHeader={false} selectedRowAction={undefined}/>
+            } } rowConditionals={undefined} fixedHeader={false} selectedRowAction={undefined}
+        />
 
+    const parseUniprotFile = (fileObject) => {
+        let reader = new FileReader();
+        
+        reader.onload = (event)=>setFileText(reader.result)
+        reader.readAsText(fileObject.file)
+    }
     return (
         <div className="h-full w-full flex flex-col items-center">
+            <FileInput fileTypeSelections={[{value: 'text', label: 'txt'}]} handleUpload={parseUniprotFile}/>
             <form onSubmit={handleSubmit} className="z-[2] flex flex-col w-1/4 h-fit rounded-xl p-4 bg-gray-200 items-center  bg-slate-800">
                 {fields}
                 <button onClick={addFields} className="flex self-start border items-center px-1 bg-gray-200 rounded mt-1"><FaRegSquarePlus />Add Accession</button>
