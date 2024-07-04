@@ -37,6 +37,16 @@ function UniprotSearch(){
             return name.split('_')[0]
         })
         console.log(accessionNumbers)
+        if(fileText) {
+            let fields = []
+            accessionNumbers.forEach((number, index) => {
+                console.log(index)
+                fields.push({entry_name: number})
+            })
+
+            setInputFields(fields)
+        }
+   
     }, [fileText])
 
     const removeField = (e, index) => {
@@ -53,7 +63,7 @@ function UniprotSearch(){
     }
 
     const addFields = (e) => {
-        e.preventDefault()
+        e && e.preventDefault()
         let newfield = { entry_name: '' }
 
         setInputFields([...inputFields, newfield])
