@@ -14,8 +14,7 @@ interface IFileTypeSelection {
 const FileInput: React.FC<IFileInputProps> = ({fileTypeSelections, handleUpload}) => {
     const [formInput, setFormInput] = useState({ fileType: '', file: null });
 
-    const handleSubmit = async (e) => {
-        e.preventDefault()
+    const handleSubmit = async () => {
         handleUpload(formInput)
     }
 
